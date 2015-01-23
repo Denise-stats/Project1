@@ -22,6 +22,10 @@ area_xy <- function(x, y, X){
     stop(paste("The minimum value of % control is", min(X$control)))
     else if (y>= max(X$control))
     stop(paste("The maximum value of % control is", max(X$control)))
+    if (x<min(X$drug))
+    stop(paste("The minimum value of the drug concentrates is", min(X$drug)))
+    else if (x>= max(X$drug))
+    stop(paste("The maximum value of the drug concentrates is", max(X$drug)))
     
     #calculate the coordinates of the intersection of y and the polylines. Denote it as (a,b).
     a = b <- rep(NA, 7)
