@@ -35,7 +35,7 @@ solve_x <- function(y, X){
    colnames(X2) <- c("control", "drug")
    X2 <- X2[complete.cases(X2),]
    v <- X2$drug
-   return(v)
+   return(v[1])
 }
 
 x1 <- solve_x(90, data); x1

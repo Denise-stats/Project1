@@ -5,20 +5,20 @@
 ## Temple Veriables:
 #       a            -- a vector of x coordinates of the intersections of y and the polylines.
 #       b            -- a vector of y coordinates of the intersections of y and the polylines.
+#       c            -- a vector of x coordinates of the intersections of x and the polylines.
+#       d            -- a vector of y coordinates of the intersections of x and the polylines.
 #       X2           -- the data.frame of a and b.
 #
 #
-#＃ Output:
+# Output:
 #       area         -- the area of the graph of curve of y=p and the polylines.
 #
 
 
 
-
-area_y_log <- function(y, X){
+area_xy_log <- function(x, y, X){
   X$ldrug <- log(X$drug)
   X <- X[,c("control","ldrug")]
-
   if (y>= max(X$control))
     stop(paste("The maximum value of % control is", max(X$control)))
   
@@ -30,22 +30,27 @@ area_y_log <- function(y, X){
       b[m] <- y
     }
   }
+  c = d <- rep(NA, 7)
+  for(n in 1:6){
+    if (x>=X$ldrug[n] & x<X$ldrug[n+1]){
+      c[n] <- x
+      d[n] <- X$control[n]+((x-X$ldrug[n])*(X$control[n+1]-X$control[n]))/(X$ldrug[n+1]-X$ldrug[n])
+    }
+  }
   
-  X2 <- as.data.frame(cbind(b,a))
-  colnames(X2) <- c("control", "ldrug")
+  X2 <- as.data.frame(rbind(cbind(b,a),cbind(d,c)))
   X2 <- X2[complete.cases(X2),]
+  colnames(X2) <- c("control", "ldrug")
   X <- rbind(X,X2)
   X <- X[order(X$ldrug),]
   
   area <- 0
   for (n in 1:(length(X$ldrug)-1)){
-    area1 <- 0.5*(X$ldrug[n+1]-X$ldrug[n])*(X$control[n+1]+X$control[n]-2*y)
-    if (area1>0)
-      area <- area1 +area
+    if (X$ldrug[n]>x){
+      area1 <- 0.5*(X$ldrug[n+1]-X$ldrug[n])*(X$control[n+1]+X$control[n]-2*y)
+      if (area1>0)
+        area <- area1 +area
+    } 
   }
   return(area)
 }
-
-#examples
-area1 <- area_y_log(70, data); area1
-#[1] 55.7276

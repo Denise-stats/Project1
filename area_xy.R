@@ -18,9 +18,7 @@
 
 area_xy <- function(x, y, X){
     X <- X[,c("control","drug")]
-    if (y<min(X$control))
-    stop(paste("The minimum value of % control is", min(X$control)))
-    else if (y>= max(X$control))
+    if (y>= max(X$control))
     stop(paste("The maximum value of % control is", max(X$control)))
     if (x<min(X$drug))
     stop(paste("The minimum value of the drug concentrates is", min(X$drug)))
