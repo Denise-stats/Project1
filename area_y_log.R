@@ -19,9 +19,6 @@ area_y_log <- function(y, X){
   X$ldrug <- log(X$drug)
   X <- X[,c("control","ldrug")]
 
-  if (y>= max(X$control))
-    stop(paste("The maximum value of % control is", max(X$control)))
-  
   #calculate the coordinates of the intersection of y and the polylines. Denote it as (a,b).
   a = b <- rep(NA, 7)
   for(m in 1:6){
@@ -45,7 +42,3 @@ area_y_log <- function(y, X){
   }
   return(area)
 }
-
-#examples
-area1 <- area_y_log(70, data); area1
-#[1] 55.7276
