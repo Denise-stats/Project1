@@ -1,13 +1,8 @@
 # main function
+
 source("area_y_log.r")
 source("solve_x_log.r")
 source("area_xy_log.r")
-
-
-all.files <- list.files("/Users/Denise/Desktop/Research/Project1/DATA", full.names = T,pattern = ".csv")
-all.files
-alldata <- lapply(all.files,function(i) read.csv(i))
-
 
 table = xmax = xmin = area1 = area2 = x = area31 = area32 <- rep(NA, 56)
 

@@ -21,18 +21,18 @@ area_xy_log <- function(x, y, X){
   X <- X[,c("control","ldrug")]
   
   #calculate the coordinates of the intersection of y and the polylines. Denote it as (a,b).
-  a = b <- rep(NA, 7)
+  a = b <- rep(NA, 6)
   for(m in 1:6){
     if ((y<=X$control[m] & y>X$control[m+1])|(y>X$control[m] & y<=X$control[m+1])){
       a[m] <- X$ldrug[m]+((X$ldrug[m+1]-X$ldrug[m])*(y-X$control[m]))/(X$control[m+1]-X$control[m])
       b[m] <- y
     }
   }
-  c = d <- rep(NA, 7)
+  c = d <- rep(NA, 6)
   for(n in 1:6){
-    if (x>=X$ldrug[n] & x<X$ldrug[n+1]){
-      c[n] <- x
-      d[n] <- X$control[n]+((x-X$ldrug[n])*(X$control[n+1]-X$control[n]))/(X$ldrug[n+1]-X$ldrug[n])
+    if (log(x)>=X$ldrug[n] & log(x)<X$ldrug[n+1]){
+      c[n] <- log(x)
+      d[n] <- X$control[n]+((log(x)-X$ldrug[n])*(X$control[n+1]-X$control[n]))/(X$ldrug[n+1]-X$ldrug[n])
     }
   }
   
@@ -44,7 +44,7 @@ area_xy_log <- function(x, y, X){
   
   area <- 0
   for (n in 1:(length(X$ldrug)-1)){
-    if (X$ldrug[n]>x){
+    if (X$ldrug[n]>=log(x)){
       area1 <- 0.5*(X$ldrug[n+1]-X$ldrug[n])*(X$control[n+1]+X$control[n]-2*y)
       if (area1>0)
         area <- area1 +area
