@@ -17,5 +17,7 @@ An example of the initialized data:
 * area2_x_log.r ---- input the concentration of drug. generate the area above the minimum value of y, with log(drug).
 * main.r       ---- the main function.
 
+**Note that `area2_x_log.r` is a function computing the area4. And the `d.area` is calculated via `area4-area2`.**
+
 More details are contained in the corresponding files.
 
