@@ -1,6 +1,6 @@
 ## Input:
 #       y       -- a numeric value of % control
-#       X       -- initialized data
+#       X       -- initialized data. 56 tables: from 1.cvs to 56.cvs
 #
 ## Temple Veriables:
 #       a            -- a vector of x coordinates of the intersections of y and the polylines.
@@ -18,8 +18,8 @@ solve_x_log <- function(y, X){
     X <- X[,c("control","ldrug")]
     
     #calculate the coordinates of the intersection of y and the polylines. Denote it as (a,b).
-    a = b <- rep(NA, 7)
-    for(m in 1:6){
+    a = b <- rep(NA, (length(X$control)-1))
+    for(m in 1:(length(X$control)-1)){
         if ((y<=X$control[m] & y>X$control[m+1])|(y>X$control[m] & y<=X$control[m+1])){
             a[m] <- X$ldrug[m]+((X$ldrug[m+1]-X$ldrug[m])*(y-X$control[m]))/(X$control[m+1]-X$control[m])
             b[m] <- y

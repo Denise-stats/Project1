@@ -1,10 +1,10 @@
 # main function
 
-source("area_y_log.r")
 source("solve_x_log.r")
 source("area_xy_log.r")
+source("area2_x_log.r")
 
-table = xmax = xmin = area1 = area2 = x = area31 = area32 <- rep(NA, 56)
+table = xmax = xmin = area1 =area2 =area3 = x <- rep(NA, 56)
 
 for(i in 1:56){ 
   data <- read.csv(paste(i, ".csv", sep=""), header=T)
@@ -13,24 +13,25 @@ for(i in 1:56){
   table[i] <- i
   xmax[i] <- max(data$drug)
   xmin[i] <- min(data$drug)
-  area1[i] <- area_y_log(0, data)
-  area2[i] <- area_y_log(-200, data)
+  area1[i] <- area_xy_log(x=1, y=100, data)
+  area2[i] <- area_xy_log(x=1, y=0, data)
+  area3[i] <- area_xy_log(x=1, y=-75, data)
+  area4[i] <- area2_x_log(x=1, data)
   x[i] <- solve_x_log(50, data)
-  area31[i] <- area_xy_log(x=0.1, y=0, data)
-  area32[i] <- area_xy_log(x=0.1, y=-200, data)
-}  
+}
   
-summarys <- as.data.frame(cbind(table, xmin, xmax, area1, area2, x, area31, area32))
+summarys <- as.data.frame(cbind(table, xmin, xmax, area1, area2, area3, area4, x))
 
 
 colnames(summarys) <- c("table",
                         "drug_min",
                         "drug_max",
-                        "area1", #y=0, log(drug)
-                        "area2", #y< ymin
-                        "drug_y50", #the first x coordinate when y=50
-                        "area31", #x=0.1, y=0, log(drug)
-                        "area32") #x=0.1, y<min
+                        "Area1", #x=1, y=100, log(drug)
+                        "Area2", #x=1, y=0, log(drug)
+                        "Area3", #x=1, y=-75, log(drug)
+                        "Area4", #x=1, log(drug)
+                        "drug_y50") #the first x coordinate when y=50
+
 
 name <- read.csv("name.csv")[,1:2]
 Summary <- merge(name, summarys, by="table")
