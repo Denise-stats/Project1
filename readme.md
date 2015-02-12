@@ -12,12 +12,9 @@ An example of the initialized data:
 
 
 
-* area_y.r              ----  input % control, and generate the area.
-* area_y_log.r         ----  input % control, and generate area, with log(drug).
-* solve_x.r            ----  input % control, and generate the corresponding concentration of drug.
 * solve_x_log.r     ----  input % control, and generate the corresponding concentration of log(drug).
-* area_xy.r -- input % control and the concentration of drug. generate the area.
 * area_xy_log.r ---- input % control and the concentration of drug. generate the area, with log(drug).
+* area2_x_log.r ---- input the concentration of drug. generate the area above the minimum value of y, with log(drug).
 * main.r       ---- the main function.
 
 More details are contained in the corresponding files.
